@@ -89,8 +89,12 @@
     padding: 14px 16px; border-radius: 14px; cursor: pointer; font-size: 15px;
     transition: border-color .15s, background .15s, transform .08s; color: var(--ink);
   }
+  .opt { touch-action: manipulation; }
   .opt:hover { border-color: #9fcfe2; background: #f3f9fc; }
-  .opt:active { transform: scale(.99); }
+  .opt.tapped, .opt:active { border-color: var(--accent) !important; background: #e8f4fa !important; color: var(--accent) !important; font-weight: 700; transform: translateY(-1px); box-shadow: 0 8px 20px -10px var(--accent); }
+  @media (hover: none) {
+    .opt:hover { border-color: var(--line); background: #fff; }
+  }
   .nav { display:flex; gap:10px; margin-top: 18px; }
   .nav .btn { flex: 1; }
 
@@ -289,6 +293,9 @@ function show(screen){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+// iPhoneで「触れている間、色が出る(:active)」を効かせるおまじない
+document.addEventListener('touchstart', function(){}, { passive: true });
+
 function startQuiz(){ current = 0; answers.length = 0; show('screen-quiz'); renderQuestion(); }
 
 function renderQuestion(){
@@ -302,11 +309,17 @@ function renderQuestion(){
 
   const box = $('q-options');
   box.innerHTML = '';
+  let picking = false;
   item.o.forEach(([label, type]) => {
     const b = document.createElement('button');
     b.className = 'opt';
     b.textContent = label;
-    b.onclick = () => choose(type);
+    b.onclick = () => {
+      if (picking) return;          // 二度押し・幽霊タップを無視
+      picking = true;
+      b.classList.add('tapped');    // 押した色を見せる
+      setTimeout(() => choose(type), 150);  // 0.15秒で次へ
+    };
     box.appendChild(b);
   });
   $('back-btn').classList.toggle('hidden', current === 0);
