@@ -71,15 +71,15 @@
     box-shadow: 0 12px 26px -8px rgba(58,150,191,.5); transition: transform .12s, box-shadow .12s;
   }
   .btn:active { transform: translateY(1px) scale(.995); }
-  .btn.secondary { background: #f1edfb; color: #5b3bd1; box-shadow: none; border:1px solid var(--line); }
-  .btn.ghost { background: transparent; color: #5b3bd1; box-shadow:none; border:1px solid #d9d0f3; }
+  .btn.secondary { background: #eef6fa; color: var(--accent); box-shadow: none; border:1px solid #d8eaf2; }
+  .btn.ghost { background: transparent; color: var(--accent); box-shadow:none; border:1px solid #cfe4ec; }
 
   /* ---- Progress ---- */
   .progress-top { display:flex; align-items:center; justify-content:space-between; margin-bottom: 14px; }
   .progress-top .step { font-size: 13px; color: var(--muted); font-weight: 600; }
   .bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
   .bar > i { display:block; height:100%; width:0; border-radius:999px;
-    background: linear-gradient(90deg, #7c5cff, #2ec4b6); transition: width .35s ease; }
+    background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .35s ease; }
 
   /* ---- Question ---- */
   .q { margin: 18px 0 18px; font-size: 18px; font-weight: 700; }
@@ -89,7 +89,7 @@
     padding: 14px 16px; border-radius: 14px; cursor: pointer; font-size: 15px;
     transition: border-color .15s, background .15s, transform .08s; color: var(--ink);
   }
-  .opt:hover { border-color: #c9bdf3; background: #faf8ff; }
+  .opt:hover { border-color: #9fcfe2; background: #f3f9fc; }
   .opt:active { transform: scale(.99); }
   .nav { display:flex; gap:10px; margin-top: 18px; }
   .nav .btn { flex: 1; }
@@ -123,7 +123,7 @@
   .tipbox { background:#eef6fa; border:1px solid #d8eaf2; border-radius:14px; padding:14px 16px; font-size:13.5px; color:#3f5662; margin-top:14px; }
   .karada-box { background: linear-gradient(160deg,#f3f9fc,#eaf4f8); border:1px solid #d6e8f0; border-radius:16px; padding:18px 18px; font-size:14px; line-height:2; color:var(--ink); margin-top:6px; box-shadow:0 10px 30px -18px rgba(58,150,191,0.4); }
   .karada-box b { color: var(--accent); }
-  .footnote { text-align:center; color: rgba(255,255,255,.6); font-size:11.5px; margin-top: 22px; line-height:1.6; }
+  .footnote { text-align:center; color: var(--muted); font-size:11.5px; margin-top: 22px; line-height:1.6; }
   .hidden { display:none; }
 </style>
 </head>
@@ -204,7 +204,7 @@
    v=視覚 / a=聴覚 / k=体感覚 / d=言語思考
 ========================================================= */
 const TYPES = {
-  v: { key:'v', name:'視覚型', color:'#7c5cff', tagline:'イメージで潜在意識に届くタイプ',
+  v: { key:'v', name:'視覚型', color:'#7fb6d8', tagline:'イメージで潜在意識に届くタイプ',
        desc:'映像や色、文字など「見えるもの」で物事を捉えるのが得意。なりたい自分を“映像”として思い描けると、ぐっと現実味が増します。整理された見た目や、目に入る情報に影響を受けやすいタイプです。',
        methods:[
          ['ビジュアライゼーション','理想の自分・場面を、色や表情まで具体的に思い描く。1日1〜2分でOK。'],
@@ -214,7 +214,7 @@ const TYPES = {
        ],
        tip:'ポイントは「鮮明さ」。色・明るさ・距離まで具体的にすると潜在意識に届きやすくなります。',
        karada:'あなたは、イメージで潜在意識に届くタイプ。よく“見える”ぶん、人とも見比べやすく、そのクセが【骨盤】に出やすい人です。SNSや誰かの姿を見て、胸がざわっとすること、ありませんか？<br><br><b>ビジョンを描く前に、まず骨盤をゆるめて。</b>骨盤がふんわりすると、“人と比べた理想”ではなく、“本当に望む理想”が見えてきます。<br><br>🤍 <b>整え方</b>：イスに座ったまま、お尻を左右にゆらゆら。骨盤まわりがゆるんで、めぐりが動き出します。<br>💭 <b>自分への問い</b>：「この理想、本当に私の？　それとも、誰かと比べて作った？」'},
-  a: { key:'a', name:'聴覚型', color:'#2ec4b6', tagline:'言葉と音で潜在意識に届くタイプ（耳から）',
+  a: { key:'a', name:'聴覚型', color:'#6fc1b4', tagline:'言葉と音で潜在意識に届くタイプ（耳から）',
        desc:'言葉のひびきや声、音楽で深く入るタイプ。「自分に言い聞かせる」「繰り返し聴く」のが効果的です。人の言葉や口ぐせにも影響されやすいので、ふだん使う言葉選びが鍵になります。',
        methods:[
          ['声に出すアファメーション','肯定文を“声に出して”繰り返す。朝晩のルーティンにすると定着。'],
@@ -224,7 +224,7 @@ const TYPES = {
        ],
        tip:'黙読より「音」にするのがコツ。声・リズム・繰り返しで潜在意識に染み込みます。',
        karada:'あなたは、言葉と音で潜在意識に届くタイプ。いい言葉も入りやすいぶん、人の言葉を気にしすぎて、そのクセが【背中】に出やすい人です。気づけば、誰かの言葉や評価に、気を張っていませんか？<br><br><b>アファメーションを自分に届ける前に、まず背中の力を抜いて。</b>背中がゆるむと、人の言葉に振り回されず、自分の言葉が深く入ります。<br><br>🤍 <b>整え方</b>：両肩を耳までぎゅーっと上げて、ストンと落とす。3回で、背中の“がんばり”が軽くなります。<br>💭 <b>自分への問い</b>：「今の言葉、私が選んだ？　それとも、誰かに合わせた？」'},
-  k: { key:'k', name:'体感覚型', color:'#ff7a59', tagline:'感覚と感情で潜在意識に届くタイプ',
+  k: { key:'k', name:'体感覚型', color:'#e6a89a', tagline:'感覚と感情で潜在意識に届くタイプ',
        desc:'身体の感覚や感情、「しっくり感」で物事を捉えるタイプ。理屈より“ワクワク”や“腑に落ちる感じ”を伴うと、書き換えが一気に進みます。実際に体を動かす・体験することで定着します。',
        methods:[
          ['感情を味わう','理想が叶った瞬間の喜び・安心感を、体でしっかり感じきる。'],
@@ -234,7 +234,7 @@ const TYPES = {
        ],
        tip:'「腑に落ちる感じ」「ワクワク」が出るまで丁寧に感じるのがコツ。感情が乗ると定着が早いタイプです。',
        karada:'あなたは、感覚と感情で潜在意識に届くタイプ。感じる力が強いぶん、感情を【仙骨】の奥にためこみやすい人です。本当は嫌だったのに、笑って飲み込んでいませんか？<br><br><b>あなたは「感じる」が得意。</b>でも、ためこんだ感情でいっぱいだと、新しい“ワクワク”は入りません。少し出すと、書き換えが一気に進みます。<br><br>🤍 <b>整え方</b>：お尻の上に手のひらを当てて、あたためながら深呼吸を1分。奥の疲れが、ゆるみます。<br>💭 <b>自分への問い</b>：「今、本当はどんな気持ち？」を、ひとつ言葉にして外に出す。'},
-  d: { key:'d', name:'言語思考型', color:'#ffb703', tagline:'納得と理屈で潜在意識に届くタイプ',
+  d: { key:'d', name:'言語思考型', color:'#d9b878', tagline:'納得と理屈で潜在意識に届くタイプ',
        desc:'頭の中の“言葉”で考え、論理や意味づけで納得するタイプ。「なぜそうなりたいか」が腑に落ちると行動が変わります。書き出して整理することで、自分の本心が見えてきます。',
        methods:[
          ['ジャーナリング','願いと「その理由」を書き出して整理する。問いに答える形が◎。'],
@@ -432,7 +432,7 @@ function drawRadar(counts, total){
       i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
     ctx.closePath();
-    if (ring===4){ ctx.fillStyle='rgba(124,92,255,0.04)'; ctx.fill(); }
+    if (ring===4){ ctx.fillStyle='rgba(58,150,191,0.05)'; ctx.fill(); }
     ctx.stroke();
   }
   // 軸
@@ -454,8 +454,8 @@ function drawRadar(counts, total){
     i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
   });
   ctx.closePath();
-  ctx.fillStyle = 'rgba(124,92,255,0.22)';
-  ctx.strokeStyle = '#7c5cff';
+  ctx.fillStyle = 'rgba(58,150,191,0.18)';
+  ctx.strokeStyle = '#3a96bf';
   ctx.lineWidth = 2;
   ctx.fill();
   ctx.stroke();
