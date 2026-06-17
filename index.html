@@ -131,6 +131,9 @@
   .tipbox { background:#eef6fa; border:1px solid #d8eaf2; border-radius:14px; padding:14px 16px; font-size:13.5px; color:#3f5662; margin-top:14px; }
   .karada-box { background: linear-gradient(160deg,#f3f9fc,#eaf4f8); border:1px solid #d6e8f0; border-radius:16px; padding:18px 18px; font-size:14px; line-height:2; color:var(--ink); margin-top:6px; box-shadow:0 10px 30px -18px rgba(58,150,191,0.4); }
   .karada-box b { color: var(--accent); }
+  .sci-note { margin-top: 12px; font-size: 12px; line-height: 1.9; color: var(--muted); background: rgba(58,150,191,0.05); border-radius: 12px; padding: 12px 14px; }
+  .sci-note b { color: var(--accent); }
+  .sci-note .sci-dis { display:block; margin-top: 6px; font-size: 11px; color: var(--ink-faint, #a6b0b6); }
   .footnote { text-align:center; color: var(--muted); font-size:11.5px; margin-top: 22px; line-height:1.6; }
   .hidden { display:none; }
 </style>
@@ -196,6 +199,7 @@
 
     <div class="section-title">カラダからの、やさしいヒント</div>
     <div class="karada-box" id="r-karada"></div>
+    <div class="sci-note">🔬 <b>ちいさな科学メモ</b><br>カラダと心がつながっていることは、研究でも少しずつ示されています。姿勢が感情や考え方に影響すること、首・肩の緊張がストレスと関わること、ゆっくりした呼吸が自律神経をやさしく整えること——どれも報告されています。<br><span class="sci-dis">※これは自己理解のための診断で、医療的な診断ではありません。</span></div>
 
     <div class="nav" style="margin-top:22px;">
       <button class="btn secondary" onclick="restart()">もう一度診断する</button>
@@ -253,6 +257,16 @@ const TYPES = {
        ],
        tip:'“なぜ”が納得できると一気に進むタイプ。感情型の「味わう」を少し足すとさらに定着します。',
        karada:'あなたは、言葉と理屈で潜在意識に届くタイプ。だからこそ頭がいつも動いていて、そのクセが【首】に出やすい人です。答えの出ないことを、過去と未来を行き来しながら、ずっと考えていませんか？<br><br><b>潜在意識を書き換えたいときこそ、まず首から。</b>首がゆるんで「今」に戻ると、ジャーナリングも問答も、ぐっと深く入ります。<br><br>🤍 <b>整え方</b>：目を閉じて、口から長〜く息を吐く。首と頭の力が、ふっとゆるみます。<br>💭 <b>自分への問い</b>：「私は今、過去・未来・今——どこにいる？」'},
+  bal: { key:'bal', name:'バランス型', color:'#3a96bf', tagline:'いろんな感覚で、しなやかに届くタイプ',
+       desc:'あなたは、視覚・聴覚・体感覚・言語思考のどれかに偏らず、バランスよく使えるタイプ。そのときの場面や気分で、自然に使い分けられる、しなやかな人です。',
+       methods:[
+         ['その日の“しっくり”で選ぶ','イメージ・言葉・感覚・理屈——気分で一番ひびく方法を選んでOK。'],
+         ['組み合わせる','見る×声に出す、感じる×書く、など複数を重ねると定着しやすい。'],
+         ['ワクワクを基準に','「どれが正解か」より「今いちばん心地いいか」で選ぶ。'],
+         ['日替わりでもOK','今日は書く、明日は感じる。決めつけず、しなやかに。'],
+       ],
+       tip:'どれも入りやすいのが、あなたの強み。迷ったら「今いちばん心地いい方法」を選んでください。',
+       karada:'あなたは、特定の一カ所というより、カラダ全体がつながって整いやすい人。だからこそ、首も、背中も、お腹の奥も、その日に気になるところを、まんべんなくゆるめてあげて。<br><br><b>潜在意識を書き換えたいときも、まずカラダから。</b>全身がゆるむと、どの感覚もクリアになって、書き換えが進みます。<br><br>🤍 <b>整え方</b>：目を閉じて、深呼吸を3回。今日いちばん固いところに、手のひらをそっと当てて。<br>💭 <b>自分への問い</b>：「今日のカラダは、どこがゆるみたい？」'},
 };
 
 /* =========================================================
@@ -356,7 +370,9 @@ function showResult(){
   const order = ['v','a','k','d'];
   const sorted = [...order].sort((x,y) => counts[y] - counts[x]);
   const top = sorted[0];
-  const T = TYPES[top];
+  // 全部バラバラ（どれも飛び抜けてない）＝バランス型
+  const isBalanced = (counts[top] / total) < 0.34;
+  const T = isBalanced ? TYPES.bal : TYPES[top];
 
   // ヒーロー
   $('r-name').textContent = T.name;
@@ -407,7 +423,7 @@ function showResult(){
   const second = sorted[1];
   const topPct = Math.round((counts[top]/total)*100);
   let blend = T.tip;
-  if (topPct < 42 && counts[second] > 0){
+  if (!isBalanced && topPct < 42 && counts[second] > 0){
     blend = `${T.tip}<br><br>あなたは <b>${T.name}</b> に <b>${TYPES[second].name}</b> の要素も強いミックスタイプ。両方の方法を組み合わせると、さらに効果的です。`;
   }
   $('r-tip').innerHTML = blend;
